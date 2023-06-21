@@ -26,6 +26,7 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.CatVariant;
 import net.minecraft.entity.passive.FrogVariant;
 import net.minecraft.fluid.Fluid;
@@ -81,6 +82,7 @@ import top.offsetmonkey538.monkeyconfig538.annotation.ConfigEntry;
 import top.offsetmonkey538.monkeyconfig538.serializer.ConfigSerializer;
 import top.offsetmonkey538.monkeyconfig538.serializer.defaultSerializers.CodecSerializer;
 import top.offsetmonkey538.monkeyconfig538.serializer.defaultSerializers.RegistrySerializer;
+import top.offsetmonkey538.monkeyconfig538.serializer.defaultSerializers.StatusEffectInstanceSerializer;
 
 import static top.offsetmonkey538.monkeyconfig538.MonkeyConfig538.*;
 
@@ -268,6 +270,9 @@ public abstract class Config {
         registerSerializer(builder, Vec3d.class,                       new CodecSerializer<>(Vec3d.CODEC));
         registerSerializer(builder, GameProfile.class,                 new CodecSerializer<>(Codecs.GAME_PROFILE));
         registerSerializer(builder, Identifier.class,                  new CodecSerializer<>(Identifier.CODEC));
+
+        // Others
+        registerSerializer(builder, StatusEffectInstance.class,        new StatusEffectInstanceSerializer());
 
         return builder;
     }

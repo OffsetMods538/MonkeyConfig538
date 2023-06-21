@@ -4,6 +4,8 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -37,6 +39,9 @@ public class ModConfig extends Config {
 
     @ConfigEntry("This is a block pos")
     public static BlockPos coolBlockPos = new BlockPos(123, 60, 321);
+
+    @ConfigEntry("This is a status effect instance")
+    public static StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.JUMP_BOOST, 526, 21);
 
     @ConfigEntry
     public static Vec3d vec3d = new Vec3d(525, 854, 266);

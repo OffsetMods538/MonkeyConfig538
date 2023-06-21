@@ -20,6 +20,7 @@ public class Testmod implements ModInitializer {
 		LOGGER.info(String.valueOf(ModConfig.coolItemStack));
 		LOGGER.info(String.valueOf(ModConfig.coolBlockState));
 		LOGGER.info(String.valueOf(ModConfig.coolBlockPos));
+		LOGGER.info(String.valueOf(ModConfig.statusEffectInstance));
 		LOGGER.info(String.valueOf(ModConfig.vec3d));
 		LOGGER.info(String.valueOf(ModConfig.gameProfile));
 		LOGGER.info(String.valueOf(ModConfig.identifier));
