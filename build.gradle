@@ -1,0 +1,128 @@
+import net.fabricmc.loom.task.RemapJarTask
+
+plugins {
+	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id 'maven-publish'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = "monkeyconfig538"
+group = "top.offsetmonkey538"
+version = "${project.mod_version}+${project.minecraft_version}"
+
+
+loom {
+	splitEnvironmentSourceSets()
+
+	sourceSets {
+		testmod {
+			compileClasspath += main.compileClasspath
+			runtimeClasspath += main.runtimeClasspath
+
+			compileClasspath += client.compileClasspath
+			runtimeClasspath += client.runtimeClasspath
+		}
+	}
+
+	mods {
+		monkeyconfig538 {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+		testmod {
+			sourceSet sourceSets.testmod
+		}
+	}
+	runs {
+		testmodClient() {
+			client()
+			name = "TestmodClient"
+			source sourceSets.testmod
+		}
+	}
+
+	createRemapConfigurations(sourceSets.testmod)
+}
+
+configurations {
+	includeModImplementation
+
+	include.extendsFrom           includeModImplementation
+	modImplementation.extendsFrom includeModImplementation
+
+
+	includeImplementation
+	
+	include.extendsFrom        includeImplementation
+	implementation.extendsFrom includeImplementation
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+
+	includeImplementation "blue.endless:jankson:${project.jankson_version}"
+
+	testmodImplementation sourceSets.main.output
+	testmodImplementation sourceSets.client.output
+}
+
+processResources {
+	inputs.properties(Map.of(
+		"modVersion",                 project.version,
+		"supportedMinecraftVersions", project.supported_minecraft_versions
+	))
+
+	filesMatching("fabric.mod.json") {
+		expand(Map.of(
+			"modVersion",                 project.version,
+			"supportedMinecraftVersions", project.supported_minecraft_versions
+		))
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}" }
+	}
+}
+
+tasks.register('testmodJar', Jar) {
+	from sourceSets.testmod.output
+	destinationDirectory = new File(project.buildDir, "devlibs")
+	archiveClassifier = "testmod"
+}
+
+tasks.register('remapTestmodJar', RemapJarTask) {
+	dependsOn testmodJar
+	input = testmodJar.archiveFile
+	archiveClassifier = "testmod"
+	addNestedDependencies = false
+}
+
+build.dependsOn remapTestmodJar
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			from components.java
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"schemaVersion": 1,
+	"id": "testmod",
+	"version": "testmod",
+	"description": "testmod",
+	"authors": [
+		"OffsetMonkey538"
+	],
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"testmod.Testmod"
+		],
+		"client": [
+			"testmod.TestmodClient"
+		]
+	}
+}

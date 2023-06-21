@@ -1,0 +1,19 @@
+{
+	"schemaVersion": 1,
+	"id": "monkeyconfig538",
+	"version": "${modVersion}",
+	"name": "MonkeyConfig538",
+	"description": "An easy to use config library using annotations made for OffsetMonkey538's mods.",
+	"authors": [
+		"OffsetMonkey538"
+	],
+	"contact": {
+		"sources": "https://github.offsetmonkey538.top/MonkeyConfig538"
+	},
+	"license": "MIT",
+	"icon": "assets/monkeyconfig538/icon.png",
+	"environment": "*",
+	"depends": {
+		"minecraft": "${supportedMinecraftVersions}"
+	}
+}
