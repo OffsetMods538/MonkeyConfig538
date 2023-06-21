@@ -1,5 +1,9 @@
 package testmod.config;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import top.offsetmonkey538.monkeyconfig538.Config;
 import top.offsetmonkey538.monkeyconfig538.annotation.ConfigEntry;
 
@@ -12,6 +16,12 @@ public class ModConfig extends Config {
 
     @ConfigEntry("But I do have a comment!")
     public static String myString = "Hello, World!";
+
+    @ConfigEntry("This is a very cool item")
+    public static Item coolItem = Items.ICE;
+
+    @ConfigEntry("This is a very cool block")
+    public static Block coolBlock = Blocks.ICE;
 
     @ConfigEntry("An array of integers!")
     public static int[] myIntArray = new int[] {

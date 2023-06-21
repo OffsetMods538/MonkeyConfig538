@@ -15,6 +15,8 @@ public class Testmod implements ModInitializer {
 
 		LOGGER.info(String.valueOf(ModConfig.iDoNotHaveAComment));
 		LOGGER.info(String.valueOf(ModConfig.myString));
+		LOGGER.info(String.valueOf(ModConfig.coolItem));
+		LOGGER.info(String.valueOf(ModConfig.coolBlock));
 		for (int i = 0; i < ModConfig.myIntArray.length; i++) {
 			LOGGER.info("myIntArray {} = {}", i, ModConfig.myIntArray[i]);
 		}
