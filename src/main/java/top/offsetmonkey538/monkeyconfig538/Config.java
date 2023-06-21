@@ -1,6 +1,7 @@
 package top.offsetmonkey538.monkeyconfig538;
 
 import blue.endless.jankson.Jankson;
+import blue.endless.jankson.JsonElement;
 import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.api.SyntaxError;
 import java.io.File;
@@ -11,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import net.fabricmc.loader.api.FabricLoader;
 import top.offsetmonkey538.monkeyconfig538.annotation.ConfigEntry;
+import top.offsetmonkey538.monkeyconfig538.serializer.ConfigSerializer;
 
 import static top.offsetmonkey538.monkeyconfig538.MonkeyConfig538.*;
 
@@ -125,6 +127,11 @@ public abstract class Config {
     protected Jankson.Builder configureJankson(Jankson.Builder builder) {
         // TODO: default serializers
         return builder;
+    }
+
+    protected <T> void registerSerializer(Jankson.Builder builder, Class<T> type, ConfigSerializer<T> serializer) {
+        builder.registerSerializer(type, serializer::toJson);
+        builder.registerDeserializer(JsonElement.class, type, serializer::fromJson);
     }
 
     private File getConfigFile() {
