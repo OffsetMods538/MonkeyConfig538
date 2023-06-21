@@ -1,9 +1,15 @@
 package testmod.config;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import top.offsetmonkey538.monkeyconfig538.Config;
 import top.offsetmonkey538.monkeyconfig538.annotation.ConfigEntry;
 
@@ -22,6 +28,24 @@ public class ModConfig extends Config {
 
     @ConfigEntry("This is a very cool block")
     public static Block coolBlock = Blocks.ICE;
+
+    @ConfigEntry("This item stack is very cool!")
+    public static ItemStack coolItemStack = new ItemStack(Items.ICE, 12);
+
+    @ConfigEntry("This block state is very cool!")
+    public static BlockState coolBlockState = Blocks.ICE.getDefaultState();
+
+    @ConfigEntry("This is a block pos")
+    public static BlockPos coolBlockPos = new BlockPos(123, 60, 321);
+
+    @ConfigEntry
+    public static Vec3d vec3d = new Vec3d(525, 854, 266);
+
+    @ConfigEntry
+    public static GameProfile gameProfile = new GameProfile(null, "OffsetMonkey538");
+
+    @ConfigEntry
+    public static Identifier identifier = new Identifier("very_cool", "identifier");
 
     @ConfigEntry("An array of integers!")
     public static int[] myIntArray = new int[] {

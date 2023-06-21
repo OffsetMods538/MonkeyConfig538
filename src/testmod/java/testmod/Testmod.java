@@ -17,6 +17,12 @@ public class Testmod implements ModInitializer {
 		LOGGER.info(String.valueOf(ModConfig.myString));
 		LOGGER.info(String.valueOf(ModConfig.coolItem));
 		LOGGER.info(String.valueOf(ModConfig.coolBlock));
+		LOGGER.info(String.valueOf(ModConfig.coolItemStack));
+		LOGGER.info(String.valueOf(ModConfig.coolBlockState));
+		LOGGER.info(String.valueOf(ModConfig.coolBlockPos));
+		LOGGER.info(String.valueOf(ModConfig.vec3d));
+		LOGGER.info(String.valueOf(ModConfig.gameProfile));
+		LOGGER.info(String.valueOf(ModConfig.identifier));
 		for (int i = 0; i < ModConfig.myIntArray.length; i++) {
 			LOGGER.info("myIntArray {} = {}", i, ModConfig.myIntArray[i]);
 		}
