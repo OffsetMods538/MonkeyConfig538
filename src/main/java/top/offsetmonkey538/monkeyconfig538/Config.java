@@ -95,8 +95,11 @@ public abstract class Config {
             JsonObject jsonObject = jankson.load(getConfigFile());
 
             populateFieldsFromJsonObject(jsonObject, this.getClass());
-        } catch (IOException | SyntaxError e) {
-            LOGGER.error(String.format("Couldn't load config file '%s'!", getConfigFilePath()), e);
+        } catch (IOException e) {
+            LOGGER.error(String.format("Couldn't read config file '%s'!", getConfigFilePath()), e);
+        } catch (SyntaxError e) {
+            LOGGER.error("Couldn't read config file '{}'!", getConfigFile());
+            LOGGER.error("Reason: {}", e.getCompleteMessage());
         }
     }
 
@@ -123,7 +126,10 @@ public abstract class Config {
 
 
             Object value = jsonObject.get(field.getType(), entryName);
-            if (value == null) continue;
+            if (value == null) {
+                LOGGER.warn("Value for field '{}' in class '{}' in config '{}' was null, using default value!", entryName, configClass.getName(), getConfigFile());
+                continue;
+            }
 
             field.setAccessible(true);
             try {
