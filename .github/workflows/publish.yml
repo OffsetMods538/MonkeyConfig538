@@ -25,4 +25,5 @@ jobs:
         workflow: build_artifacts.yml
         commit: ${{ github.sha }}
         name: Artifacts
+        path: artifacts
     - run: ls
