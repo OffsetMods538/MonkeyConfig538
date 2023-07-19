@@ -9,7 +9,7 @@ jobs:
     
     steps:
     - name: Wait for build workflow
-      uses: lewagon/wait-on-check-action@v1
+      uses: lewagon/wait-on-check-action@v1.3
       with:
         ref: ${{ github.ref }}
         allowed-conclusions: success
