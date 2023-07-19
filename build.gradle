@@ -107,18 +107,19 @@ jar {
 	}
 }
 
-tasks.register('publishModrinth', TaskModrinthUpload) {
+modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 	projectId = "${project.modrinthId}"
 	versionNumber = "${project.version}"
 	versionType = "beta"
 	if (System.getenv("FROM_GITHUB_ACTION")) {
 		uploadFile = file("artifacts/!(*-@(dev|sources|javadoc|testmod)).jar")
-		additionalFiles = [file("artifacts/*-dev.jar"), file("artifacts/*-sources.jar"), file("artifacts/*-javadoc.jar"), file("artifacts/*-testmod.jar")] as List
+		additionalFiles = [file("artifacts/*-sources.jar"), file("artifacts/*-javadoc.jar"), file("artifacts/*-testmod.jar")] as List
 	} else {
 		uploadFile = remapJar
 	}
 	gameVersions = outlet.mcVersions()
+	autoAddDependsOn = false
 }
 
 tasks.register('testmodJar', Jar) {
