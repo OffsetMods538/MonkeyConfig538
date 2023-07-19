@@ -37,7 +37,7 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Publish to modrinth
-      run: gradle modrinth
+      run: gradle publishModrinth
       env: 
         FROM_GITHUB_ACTION: true
         MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
