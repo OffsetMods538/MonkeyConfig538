@@ -11,6 +11,9 @@ I do have config screens and mod menu integration in mind, but making a config s
 ## Great, how do I use it?
 If you're just a player, you shouldn't need to do anything as mods *should* include the library. If a mod doesn't, just head over to the [modrinth](https://modrinth.com/mod/monkeyconfig538) page and download it from there like any other mod.
 
+### Usage examples
+You can check out the [testmod](https://github.com/OffsetMonkey538/MonkeyConfig538/tree/master/src/testmod/java/testmod) and my [baguette mod](https://github.com/OffsetMonkey538/Baguette/blob/master/src/main/java/com/github/offsetmonkey538/baguette/config/BaguetteConfig.java) for usage examples.
+
 ### Including
 Now if you're looking to use the library in your own mod, you'll first have to include it in your project.  
 To do that, you first need to add jitpack to the `repositories` block in your `build.gradle` file like this: 
