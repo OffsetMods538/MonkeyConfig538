@@ -2,6 +2,8 @@ import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
 	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id 'io.github.dexman545.outlet' version '1.5.1'
+	id 'com.modrinth.minotaur' version "2.+"
 	id 'maven-publish'
 }
 
@@ -11,6 +13,7 @@ targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = "monkeyconfig538"
 group = "top.offsetmonkey538"
 version = "${project.mod_version}+${project.minecraft_version}"
+outlet.mcVersionRange = project.supported_minecraft_versions
 
 
 loom {
@@ -102,6 +105,20 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}" }
 	}
+}
+
+modrinth {
+	token = System.getenv("MODRINTH_TOKEN")
+	projectId = "${project.modrinthId}"
+	versionNumber = "${project.version}"
+	versionType = "beta"
+	if (System.getenv("FROM_GITHUB_ACTION")) {
+		uploadFile = file("artifacts/!(*-@(dev|sources|javadoc|testmod)).jar")
+		additionalFiles = file("artifacts/*-@(dev|sources|javadoc|testmod).jar")
+	} else {
+		uploadFile = remapJar
+	}
+	gameVersions = outlet.mcVersions()
 }
 
 tasks.register('testmodJar', Jar) {
