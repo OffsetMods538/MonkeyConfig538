@@ -114,7 +114,7 @@ modrinth {
 	versionType = "beta"
 	if (System.getenv("FROM_GITHUB_ACTION")) {
 		uploadFile = file("artifacts/!(*-@(dev|sources|javadoc|testmod)).jar")
-		additionalFiles = file("artifacts/*-@(dev|sources|javadoc|testmod).jar")
+		additionalFiles = [file("artifacts/*-dev.jar"), file("artifacts/*-sources.jar"), file("artifacts/*-javadoc.jar"), file("artifacts/*-testmod.jar")] as List
 	} else {
 		uploadFile = remapJar
 	}
