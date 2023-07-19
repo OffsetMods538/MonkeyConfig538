@@ -1,1 +1,25 @@
-todo
+name: Publish mod
+
+on: [workflow_dispatch, release]
+
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Wait for build workflow
+      uses: lewagon/wait-on-check-action@v1
+      with:
+        ref: ${{ github.ref }}
+        allowed-conclusions: success
+        check-name: build
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        wait-interval: 10
+
+    - name: Download artifacts
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: build_artifacts.yml
+        commit: ${{ github.sha }}
+        name: Artifacts
