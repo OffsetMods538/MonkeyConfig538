@@ -1,6 +1,6 @@
 name: Publish mod
 
-on: [workflow_dispatch, release, push]
+on: [release, push]
 
 
 jobs:
@@ -26,4 +26,12 @@ jobs:
         commit: ${{ github.sha }}
         name: Artifacts
         path: artifacts
-    - run: ls
+
+    - if: ${{ runner.os != 'Windows' }}
+      run: chmod +x ./gradlew
+
+    - name: Publish to modrinth
+      run: gradle modrinth
+      env: 
+        FROM_GITHUB_ACTION: true
+        MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
