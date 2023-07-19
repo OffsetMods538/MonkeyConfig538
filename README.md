@@ -1,6 +1,5 @@
 # MonkeyConfig538
 [![discord-singular](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-singular_vector.svg)](https://discord.offsetmonkey538.top/)
-[![jitpack](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/jitpack_vector.svg)](https://jitpack.io/#top.offsetmonkey538/monkeyconfig538)
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/monkeyconfig538)
 
 ## What is this?
@@ -16,22 +15,16 @@ You can check out the [testmod](https://github.com/OffsetMonkey538/MonkeyConfig5
 
 ### Including
 Now if you're looking to use the library in your own mod, you'll first have to include it in your project.  
-To do that, you first need to add jitpack to the `repositories` block in your `build.gradle` file like this: 
+To do that, you first need to add modrinth maven to the `repositories` block in your `build.gradle` file like this: 
 ```gradle
 repositories {
   // Other repositories
 
   maven {
-    name = "JitPack"
-    url = "https://jitpack.io"
-    // This part is technically unneeded. Tells gradle to only search for my libraries in this repository.
-    // Might make it a bit faster -_o_-
+    name = "Modrinth"
+    url = "https://api.modrinth.com/maven"
     content {
-      // Other stuff
-
-      includeGroup "top.offsetmonkey538"
-
-      // Other stuff
+      includeGroup "maven.modrinth"
     }
   }
 
@@ -39,17 +32,17 @@ repositories {
 }
 ```
 
-Once you have JitPack, you can include the library in your project like this:
+Once you have the modrinth maven repository, you can include the library in your project like this:
 ```gradle
 dependencies {
   // Other dependencies
 
-  include(modImplementation("top.offsetmonkey538:monkeyconfig538:[LIBRARY_VERSION]"))
+  include(modImplementation("maven.modrinth:monkeyconfig538:[LIBRARY_VERSION]"))
 
   // Other dependencies
 }
 ```
-Just make sure to replace `[LIBRARY_VERSION]` with an actually valid version which you can find on [JitPack](https://jitpack.io/#top.offsetmonkey538/monkeyconfig538).
+Just make sure to replace `[LIBRARY_VERSION]` with an actually valid version which you can find on [Modrinth](https://modrinth.com/mod/monkeyconfig538/versions).
 
 ### Using
 Alright, now that you have the library included, you can finally start using it.  
