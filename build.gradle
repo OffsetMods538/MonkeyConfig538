@@ -107,7 +107,7 @@ jar {
 	}
 }
 
-modrinth {
+tasks.register('publishModrinth', TaskModrinthUpload) {
 	token = System.getenv("MODRINTH_TOKEN")
 	projectId = "${project.modrinthId}"
 	versionNumber = "${project.version}"
