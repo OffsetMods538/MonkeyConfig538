@@ -1,6 +1,6 @@
 name: Publish mod
 
-on: [workflow_dispatch, release]
+on: [workflow_dispatch, release, push]
 
 
 jobs:
