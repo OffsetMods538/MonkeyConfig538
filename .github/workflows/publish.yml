@@ -1,6 +1,8 @@
 name: Publish the mod
 
-on: [release]
+on:
+  release:
+    types: [published]
 
 
 jobs:
