@@ -115,7 +115,7 @@ modrinth {
 	if (System.getenv("FROM_GITHUB_ACTION")) {
 		uploadFile = fileTree("artifacts").exclude {
 			file -> file.name.endsWithAny("-dev.jar", "-sources.jar", "-javadoc.jar", "-testmod.jar")
-		}
+		}.asFileTree.files.single()
 
 		additionalFiles = fileTree("artifacts").filter {
 			file -> file.name.endsWithAny("-dev.jar", "-sources.jar", "-javadoc.jar", "-testmod.jar")
