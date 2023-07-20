@@ -2,6 +2,8 @@ import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
 	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id 'io.github.dexman545.outlet' version '1.5.1'
+	id 'com.modrinth.minotaur' version "2.+"
 	id 'maven-publish'
 }
 
@@ -11,6 +13,7 @@ targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = "monkeyconfig538"
 group = "top.offsetmonkey538"
 version = "${project.mod_version}+${project.minecraft_version}"
+outlet.mcVersionRange = project.supported_minecraft_versions
 
 
 loom {
@@ -118,6 +121,26 @@ tasks.register('remapTestmodJar', RemapJarTask) {
 }
 
 build.dependsOn remapTestmodJar
+
+modrinth {
+	token = System.getenv("MODRINTH_TOKEN")
+	projectId = "${project.modrinthId}"
+	versionNumber = "${project.version}"
+	versionType = "beta"
+	uploadFile = remapJar
+	additionalFiles = [sourcesJar, javadocJar, remapTestmodJar]
+	gameVersions = outlet.mcVersions()
+	autoAddDependsOn = false
+	syncBodyFrom = rootProject.file("README.md").text
+	def changelogFile = rootProject.file("CHANGELOG.md")
+	if (changelogFile.exists()) {
+		changelog = changelogFile.text
+	}
+
+	dependencies {
+
+	}
+}
 
 publishing {
 	publications {
