@@ -129,6 +129,7 @@ modrinth {
 	versionType = "beta"
 	uploadFile = remapJar.archiveFile
 	//additionalFiles = [sourcesJar.archiveFile, javadocJar.archiveFile]
+	additionalFiles = [sourcesJar.archiveFile]
 	gameVersions = outlet.mcVersions()
 	syncBodyFrom = rootProject.file("README.md").text
 	def changelogFile = rootProject.file("CHANGELOG.md")
