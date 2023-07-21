@@ -125,6 +125,8 @@ build.dependsOn remapTestmodJar
 modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 	projectId = "${project.modrinthId}"
+	def customVersionName = System.getenv("VERSION_NAME")
+	if (customVersionName != null) versionName = customVersionName
 	versionNumber = "${project.version}"
 	versionType = "beta"
 	uploadFile = remapJar.archiveFile
