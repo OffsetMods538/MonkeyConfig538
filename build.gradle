@@ -57,9 +57,15 @@ configurations {
 
 
 	includeImplementation
-	
+
 	include.extendsFrom        includeImplementation
 	implementation.extendsFrom includeImplementation
+
+
+	includeApi
+
+	include.extendsFrom includeApi
+	api.extendsFrom     includeApi
 }
 
 repositories {
@@ -72,7 +78,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 
-	includeImplementation "blue.endless:jankson:${project.jankson_version}"
+	includeApi "blue.endless:jankson:${project.jankson_version}"
 
 	testmodImplementation sourceSets.main.output
 	testmodImplementation sourceSets.client.output
