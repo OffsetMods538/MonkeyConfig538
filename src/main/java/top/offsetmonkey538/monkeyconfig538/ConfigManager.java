@@ -62,6 +62,8 @@ public class ConfigManager {
         String json = jankson.toJson(config).toJson(true, true);
 
         try {
+            Path parentDir = configFilePath.getParent();
+            if (Files.notExists(parentDir)) Files.createDirectories(parentDir);
             Files.writeString(configFilePath, json);
         } catch (IOException e) {
             LOGGER.error(String.format("Couldn't write to config file '%s'!", configFilePath), e);
