@@ -12,7 +12,8 @@ I do have config screens and mod menu integration in mind, but making a config s
 If you're just a player, you shouldn't need to do anything as mods *should* include the library. If a mod doesn't, just head over to the [modrinth](https://modrinth.com/mod/monkeyconfig538) page and download it from there like any other mod.
 
 ### Usage examples
-You can check out the [testmod](https://github.com/OffsetMonkey538/MonkeyConfig538/tree/master/src/testmod/java/testmod) and my [baguette mod](https://github.com/OffsetMonkey538/Baguette/blob/master/src/main/java/com/github/offsetmonkey538/baguette/config/BaguetteConfig.java) for usage examples.
+You can check out the [testmod](https://github.com/OffsetMonkey538/MonkeyConfig538/tree/master/src/testmod/java/testmod) and my [baguette mod](https://github.com/OffsetMonkey538/Baguette/blob/master/src/main/java/com/github/offsetmonkey538/baguette/config/BaguetteConfig.java) for usage examples.  
+You can also look at the [javadoc](https://jitpack.io/top/offsetmonkey538/monkeyconfig538/latest/javadoc/)
 
 ### Including
 Now if you're looking to use the library in your own mod, you'll first have to include it in your project.  
@@ -63,19 +64,7 @@ import top.offsetmonkey538.monkeyconfig538.Config;
 
 
 public class MyModConfig extends Config {
-
-
-  // You have to override the `getName()` method.
-  @Override
-  protected String getName() {
-    // This will be the name of the config file.
-    // Returning for example "cool_stuff" would create the config file at "minecraft_folder/config/cool_stuff.json"
-    // It's best to just return your mod id
-    return "my-mod";
-
-    // Returning something like "my-mod/config1" would create the config at "minecraft_folder/config/my-mod/config1.json"
-    // So you can have multiple configs for your mod by putting them in a folder.
-  }
+    
 }
 ```
 
@@ -86,12 +75,19 @@ You'll also have to initialize the config in your mod initializer like this:
 public void onInitialize() {
   // Other stuff
 
-  new MyModConfig.init();
+
+  // This will be the name of the config file.
+  // Using for example "cool_stuff" would create the config file at "minecraft_folder/config/cool_stuff.json"
+  // It's best to just use your mod id
+  ConfigManager.init(new MyModConfig(), "my-mod");
+
+  // Using something like "my-mod/config1" would create the config at "minecraft_folder/config/my-mod/config1.json"
+  // So you can have multiple configs for your mod by putting them in a folder.
+
 
   // Other stuff
 }
 ```
-There also exist `save()` and `load()` methods, they're pretty self explanatory.
 
 #### Adding entries
 Now, let's actually get to adding a config entry. It's actually really simple!  
@@ -99,19 +95,28 @@ Let's say we wanted to store an integer, let's call it "itemUsageTimeInTicks":
 ```java
 public class MyModConfig extends Config {
 
-  // Each config entry has to be annotated with the "ConfigEntry" annotation.
-  @ConfigEntry
-  // All entries have to be public and static.
   // The initial value you set (120 in this case) is the default value that will be used
   // if the config or this specific entry doesn't exist in the file.
-  public static int itemUsageTimeInTicks = 120;
-  
+  public int itemUsageTimeInTicks = 120;
+
 }
 ```
 
-To access that value, all you have to do is this:
+### Accessing an entry
+Before you can access an entry, you need to add another method to your mod initializer:
 ```java
-System.out.println("Item usage time: " + MyModConfig.itemUsageTimeInTicks);
+public static MyModConfig config() {
+  return (MyModConfig) ConfigManager.get("my-mod");
+}
+```
+
+Finally, all you have to do to access an entry is this:
+```java
+import static my.mod.ModInitializer.config;
+
+// Other stuff
+
+System.out.println("Item usage time: " + config().itemUsageTimeInTicks);
 ```
 
 It's as easy as that!
@@ -122,8 +127,8 @@ Let's take the last example and add a comment `"This is the max usage time for m
 ```java
 // Other stuff
 
-@ConfigEntry("This is the max usage time for my cool item. It is measured in ticks")
-public static int itemUsageTimeInTicks = 120;
+@Comment("This is the max usage time for my cool item. It is measured in ticks")
+public int itemUsageTimeInTicks = 120;
 
 // Other stuff
 ```
@@ -142,20 +147,22 @@ Let's use the example from above:
 ```java
 public class MyModConfig extends Config {
 
-  @ConfigEntry("This is configuration for a very cool item")
+  @Comment("This is configuration for a very cool item")
+  public MyCoolItemConfig myCoolItemConfig = new MyCoolItemConfig();
   public static class MyCoolItemConfig {
-    @ConfigEntry("This is the max usage time for my cool item. It is measured in ticks")
-    public static int itemUsageTimeInTicks = 120;
+    @Comment("This is the max usage time for my cool item. It is measured in ticks")
+    public int itemUsageTimeInTicks = 120;
   }
 
-  @ConfigEntry("This is configuration for another very cool item")
+  @Comment("This is configuration for another very cool item")
+  public MyOtherCoolItemConfig = new MyOtherCoolItemConfig();
   public static class MyOtherCoolItemConfig {
-    @ConfigEntry("This is the max usage time for my other cool item. It is measured in ticks")
-    public static int itemUsageTimeInTicks = 60;
+    @Comment("This is the max usage time for my other cool item. It is measured in ticks")
+    public int itemUsageTimeInTicks = 60;
   }
 }
 ```
-To access those values, you'd use `MyModConfig.MyCoolItemConfig.itemUsageTimeInTicks` and `MyModConfig.MyOtherCoolItemConfig.itemUsageTimeInTicks`.  
+To access those values, you'd use `config().myCoolItemConfig.itemUsageTimeInTicks` and `config().myOtherCoolItemConfig.itemUsageTimeInTicks`.  
 The generated config file would look like this:
 ```json5
 {
@@ -235,14 +242,13 @@ We have to override the `configureJankson` method in our `MyModConfig` class to 
 protected Jankson.Builder configureJankson(Jankson.Builder builder) {
   registerSerializer(builder, MyValues.class, new MyValuesSerializer());
 
-  return builder;
+  return super.configureJankson(builder);
 }
 ```
 
 Then you can use the `MyValues` class as a config entry like any other:
 ```java
-@ConfigEntry
-public static MyValues = new MyValues(1234, "Hello, World!");
+public MyValues = new MyValues(1234, "Hello, World!");
 ```
 
 Alright, I think that should be everything for the mod. If you have any questions then you can ask me in my [discord server](https://discord.offsetmonkey538.top/).
