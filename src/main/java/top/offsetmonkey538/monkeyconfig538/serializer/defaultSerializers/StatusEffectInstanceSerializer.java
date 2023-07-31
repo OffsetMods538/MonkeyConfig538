@@ -7,6 +7,9 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import top.offsetmonkey538.monkeyconfig538.serializer.ConfigSerializer;
 
+/**
+ * A serializer for {@link StatusEffectInstance}.
+ */
 public class StatusEffectInstanceSerializer implements ConfigSerializer<StatusEffectInstance> {
     @Override
     public JsonElement toJson(StatusEffectInstance value, Marshaller marshaller) {

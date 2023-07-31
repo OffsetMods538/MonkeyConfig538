@@ -9,9 +9,20 @@ import top.offsetmonkey538.monkeyconfig538.serializer.ConfigSerializer;
 
 import static top.offsetmonkey538.monkeyconfig538.MonkeyConfig538.*;
 
+/**
+ * A serializer for things in registries.
+ *
+ * @param <T> The thing itself.
+ * @param <U> Another thing.
+ */
 public class RegistrySerializer<T, U extends T> implements ConfigSerializer<T> {
     private final Registry<U> registry;
 
+    /**
+     * Creates an instance of a RegistrySerializer.
+     *
+     * @param registry The registry this serializer is for.
+     */
     public RegistrySerializer(Registry<U> registry) {
         this.registry = registry;
     }

@@ -11,9 +11,19 @@ import top.offsetmonkey538.monkeyconfig538.serializer.JanksonOps;
 
 import static top.offsetmonkey538.monkeyconfig538.MonkeyConfig538.*;
 
+/**
+ * A serializer for classes which have a {@link Codec}.
+ *
+ * @param <T> The serializable class.
+ */
 public class CodecSerializer<T> implements ConfigSerializer<T> {
     private final Codec<T> codec;
 
+    /**
+     * Creates a new {@link CodecSerializer} for a codec.
+     *
+     * @param codec The codec used for (de)serializing values.
+     */
     public CodecSerializer(Codec<T> codec) {
         this.codec = codec;
     }

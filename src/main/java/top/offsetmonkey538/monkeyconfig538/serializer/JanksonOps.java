@@ -11,12 +11,27 @@ import com.mojang.serialization.DynamicOps;
 import java.util.Map;
 import java.util.stream.Stream;
 
+/**
+ * A {@link DynamicOps} for jankson.
+ */
 public class JanksonOps implements DynamicOps<JsonElement> {
+    /**
+     * JanksonOps instance for serialization
+     */
     public static final JanksonOps INSTANCE = new JanksonOps(false);
+
+    /**
+     * JanksonOps instance for compressed serialization
+     */
     public static final JanksonOps COMPRESSED = new JanksonOps(true);
 
     private final boolean compressed;
 
+    /**
+     * Creates a new JanksonOps instance
+     *
+     * @param compressed Whether this JanksonOps should use compressed serialization.
+     */
     protected JanksonOps(final boolean compressed) {
         this.compressed = compressed;
     }
