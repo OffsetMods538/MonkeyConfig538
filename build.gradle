@@ -12,7 +12,7 @@ targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = "monkeyconfig538"
 group = "top.offsetmonkey538"
-version = "${project.mod_version}+${project.minecraft_version}"
+version = "${project.mod_version}"
 outlet.mcVersionRange = project.supported_minecraft_versions
 
 
@@ -86,13 +86,13 @@ dependencies {
 
 processResources {
 	inputs.properties(Map.of(
-		"modVersion",                 project.version,
+		"modVersion",                 project.mod_version,
 		"supportedMinecraftVersions", project.supported_minecraft_versions
 	))
 
 	filesMatching("fabric.mod.json") {
 		expand(Map.of(
-			"modVersion",                 project.version,
+			"modVersion",                 project.mod_version,
 			"supportedMinecraftVersions", project.supported_minecraft_versions
 		))
 	}
