@@ -38,6 +38,26 @@ public final class ConfigManager {
     }
 
     /**
+     * Loads a config.
+     *
+     * @param configName The name of the config to load.
+     */
+    public static void load(String configName) {
+        if (!configs.containsKey(configName)) throw new IllegalArgumentException("No config named '" + configName + "' has been registered!");
+        load(configs.get(configName), configName);
+    }
+
+    /**
+     * Saves a config.
+     *
+     * @param configName The name of the config to save.
+     */
+    public static void save(String configName) {
+        if (!configs.containsKey(configName)) throw new IllegalArgumentException("No config named '" + configName + "' has been registered!");
+        save(configs.get(configName), configName);
+    }
+
+    /**
      * Returns the config with the provided name, null if it hasn't been initialized.
      *
      * @param configName The name of the config.
