@@ -63,7 +63,7 @@ public class JanksonOps implements DynamicOps<JsonElement> {
 
     @Override
     public DataResult<Number> getNumberValue(JsonElement input) {
-        if (!(input instanceof JsonPrimitive primitive)) return DataResult.error(() -> "Not a number: " + input);
+        if (!(input instanceof JsonPrimitive primitive)) return DataResult.error("Not a number: " + input);
         Object value = primitive.getValue();
 
         if (value instanceof Number actualValue) return DataResult.success(actualValue);
@@ -72,11 +72,11 @@ public class JanksonOps implements DynamicOps<JsonElement> {
             try {
                 return DataResult.success(Integer.parseInt(actualValue));
             } catch (final NumberFormatException e) {
-                return DataResult.error(() -> "Not a number: " + e + " " + input);
+                return DataResult.error("Not a number: " + e + " " + input);
             }
         }
 
-        return DataResult.error(() -> "Not a number: " + input);
+        return DataResult.error("Not a number: " + input);
     }
 
     @Override
@@ -102,9 +102,9 @@ public class JanksonOps implements DynamicOps<JsonElement> {
 
     @Override
     public DataResult<String> getStringValue(JsonElement input) {
-        if (!(input instanceof JsonPrimitive primitive)) return DataResult.error(() -> "Not a string: " + input);
+        if (!(input instanceof JsonPrimitive primitive)) return DataResult.error("Not a string: " + input);
 
-        if (!(compressed || primitive.getValue() instanceof String)) return DataResult.error(() -> "Not a string: " + input);
+        if (!(compressed || primitive.getValue() instanceof String)) return DataResult.error("Not a string: " + input);
         return DataResult.success(primitive.asString());
     }
 
@@ -115,7 +115,7 @@ public class JanksonOps implements DynamicOps<JsonElement> {
 
     @Override
     public DataResult<JsonElement> mergeToList(JsonElement list, JsonElement value) {
-        if (!(list instanceof JsonArray || list instanceof JsonNull)) return DataResult.error(() -> "Not an array: " + list);
+        if (!(list instanceof JsonArray || list instanceof JsonNull)) return DataResult.error("Not an array: " + list);
 
         JsonArray output = new JsonArray();
 
@@ -166,8 +166,8 @@ public class JanksonOps implements DynamicOps<JsonElement> {
 
     @Override
     public DataResult<JsonElement> mergeToMap(JsonElement map, JsonElement key, JsonElement value) {
-        if (!(key instanceof JsonPrimitive primitive && (primitive.getValue() instanceof String keyValue && !compressed))) return DataResult.error(() -> "Key is not a string: " + key);
-        if (!(map instanceof JsonNull || map instanceof JsonObject)) return DataResult.error(() -> "Not JSON object: " + map);
+        if (!(key instanceof JsonPrimitive primitive && (primitive.getValue() instanceof String keyValue && !compressed))) return DataResult.error("Key is not a string: " + key);
+        if (!(map instanceof JsonNull || map instanceof JsonObject)) return DataResult.error("Not JSON object: " + map);
 
         JsonObject output = new JsonObject();
 
@@ -179,7 +179,7 @@ public class JanksonOps implements DynamicOps<JsonElement> {
 
     @Override
     public DataResult<Stream<Pair<JsonElement, JsonElement>>> getMapValues(JsonElement input) {
-        if (!(input instanceof JsonObject actualInput)) return DataResult.error(() -> "Not a JSON object: " + input);
+        if (!(input instanceof JsonObject actualInput)) return DataResult.error("Not a JSON object: " + input);
 
         return DataResult.success(
                 actualInput.entrySet().stream().map(entry -> new Pair<>(new JsonPrimitive(entry.getKey()), entry.getValue()))
@@ -225,7 +225,7 @@ public class JanksonOps implements DynamicOps<JsonElement> {
 
     @Override
     public DataResult<Stream<JsonElement>> getStream(JsonElement input) {
-        if (!(input instanceof JsonArray actualInput)) return DataResult.error(() -> "Not an array: " + input);
+        if (!(input instanceof JsonArray actualInput)) return DataResult.error("Not an array: " + input);
         return DataResult.success(actualInput.stream());
     }
 
