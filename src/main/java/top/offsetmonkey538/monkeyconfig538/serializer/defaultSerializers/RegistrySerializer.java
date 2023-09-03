@@ -4,7 +4,7 @@ import blue.endless.jankson.JsonElement;
 import blue.endless.jankson.JsonNull;
 import blue.endless.jankson.api.Marshaller;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
+import net.minecraft.util.registry.Registry;
 import top.offsetmonkey538.monkeyconfig538.serializer.ConfigSerializer;
 
 import static top.offsetmonkey538.monkeyconfig538.MonkeyConfig538.*;

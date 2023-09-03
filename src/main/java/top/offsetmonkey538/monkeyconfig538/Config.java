@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.potion.Potion;
-import net.minecraft.registry.Registries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -39,15 +39,15 @@ public abstract class Config {
         // TODO: default serializers
 
         // Registrable things
-        registerSerializer(builder, Block.class,                       new RegistrySerializer<>(Registries.BLOCK));
-        registerSerializer(builder, Enchantment.class,                 new RegistrySerializer<>(Registries.ENCHANTMENT));
-        registerSerializer(builder, EntityType.class,                  new RegistrySerializer<>(Registries.ENTITY_TYPE));;
-        registerSerializer(builder, Fluid.class,                       new RegistrySerializer<>(Registries.FLUID));
-        registerSerializer(builder, Item.class,                        new RegistrySerializer<>(Registries.ITEM));
-        registerSerializer(builder, ParticleType.class,                new RegistrySerializer<>(Registries.PARTICLE_TYPE));
-        registerSerializer(builder, Potion.class,                      new RegistrySerializer<>(Registries.POTION));
-        registerSerializer(builder, SoundEvent.class,                  new RegistrySerializer<>(Registries.SOUND_EVENT));
-        registerSerializer(builder, StatusEffect.class,                new RegistrySerializer<>(Registries.STATUS_EFFECT));
+        registerSerializer(builder, Block.class,                       new RegistrySerializer<>(Registry.BLOCK));
+        registerSerializer(builder, Enchantment.class,                 new RegistrySerializer<>(Registry.ENCHANTMENT));
+        registerSerializer(builder, EntityType.class,                  new RegistrySerializer<>(Registry.ENTITY_TYPE));;
+        registerSerializer(builder, Fluid.class,                       new RegistrySerializer<>(Registry.FLUID));
+        registerSerializer(builder, Item.class,                        new RegistrySerializer<>(Registry.ITEM));
+        registerSerializer(builder, ParticleType.class,                new RegistrySerializer<>(Registry.PARTICLE_TYPE));
+        registerSerializer(builder, Potion.class,                      new RegistrySerializer<>(Registry.POTION));
+        registerSerializer(builder, SoundEvent.class,                  new RegistrySerializer<>(Registry.SOUND_EVENT));
+        registerSerializer(builder, StatusEffect.class,                new RegistrySerializer<>(Registry.STATUS_EFFECT));
 
         // Things with codecs
         registerSerializer(builder, ItemStack.class,                   new CodecSerializer<>(ItemStack.CODEC));
